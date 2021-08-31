@@ -1,7 +1,7 @@
 <h1 align="center">
   <a href="#"><img src="http://mysqlhighavailability.com/wp-content/uploads/2015/12/Node_Cluster_logo.png" alt="Inva UI" width="200"></a>
   <br>
-  Clustering in Node-Js - Auth - Mysql
+  Clustering in NodeJs · Auth · Mysql
   <br>
   <br>
 </h1>
