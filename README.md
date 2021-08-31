@@ -20,7 +20,12 @@ A clustering based node-js boilerplate. Performance MAX 😍
   - [Install](#install)
   - [License](#license)
 
-## How to install
+## Examples
+
+<p>Lets look at some exmaples 🔥</p>
+<img src="https://res.cloudinary.com/shaun-storage/image/upload/v1630434449/clustering-boilerplate.jpg"/>
+
+## Install
 
 1. clone the repo
 2. run `npm install`
@@ -29,6 +34,8 @@ A clustering based node-js boilerplate. Performance MAX 😍
 5. run `npx sequelize db:create` It will create database for you.
 6. run `npx sequelize db:migrate` It will create tables.
 7. run `npm run dev`
+
+_Note: To run the preceding commands, [Node.js](http://nodejs.org) and [npm](https://npmjs.com) must be installed._
 
 ### Boilerplate includes
 
@@ -41,3 +48,7 @@ A clustering based node-js boilerplate. Performance MAX 😍
 - [x] Request validation using `Express-validator`.
 - [x] `Morgan and Winston` for server side logging.
 - [x] `Swagger` for API documentation.
+
+## License
+
+[MIT](LICENSE). Copyright (c) [Shaun Mak](https://shaunmak.com).
