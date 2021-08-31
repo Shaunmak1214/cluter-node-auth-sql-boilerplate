@@ -1,5 +1,5 @@
 {
-  "name": "auth-mysql",
+  "name": "cluster-node-auth-sql-boilerplate",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -10,10 +10,11 @@
     "lint": "npx standard .",
     "lint:fix": "npx standard --fix && echo 'Lint complete.'"
   },
-  "author": "Rohit Ambre",
-  "license": "ISC",
+  "author": "Shaun Mak",
+  "license": "MIT",
   "dependencies": {
     "bcrypt": "^5.0.0",
+    "cluster": "^0.7.7",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-validator": "^6.5.0",
