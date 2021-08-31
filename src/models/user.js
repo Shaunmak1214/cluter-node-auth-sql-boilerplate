@@ -1,6 +1,6 @@
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcrypt');
 
-const logger = require('../../winston-config')
+const logger = require('../../winston-config');
 
 module.exports = (sequelize, DataTypes) => {
   const User = sequelize.define('user', {
@@ -8,41 +8,41 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(11),
       allowNull: false,
       primaryKey: true,
-      autoIncrement: true
+      autoIncrement: true,
     },
     email: {
       type: DataTypes.STRING(50),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     first_name: {
       type: DataTypes.STRING(50),
-      defaultValue: ''
+      defaultValue: '',
     },
     last_name: {
       type: DataTypes.STRING(50),
-      defaultValue: ''
+      defaultValue: '',
     },
     password: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
-  })
+      allowNull: false,
+    },
+  });
 
   /**
    * beforeCreate hook on User instance to hash the password
    */
   User.addHook('beforeCreate', async (user, options) => {
-    const salt = await bcrypt.genSalt(parseInt(process.env.SALT))
-    user.password = await bcrypt.hash(user.password, salt)
-  })
+    const salt = await bcrypt.genSalt(parseInt(process.env.SALT));
+    user.password = await bcrypt.hash(user.password, salt);
+  });
 
   /**
    * User instanceMethod to Validate the password
    */
   User.prototype.validPassword = function (password) {
-    return bcrypt.compareSync(password, this.password)
-  }
+    return bcrypt.compareSync(password, this.password);
+  };
 
   /**
    * Checks whether user with same unique field already exist or not
@@ -52,14 +52,14 @@ module.exports = (sequelize, DataTypes) => {
     this.findOne({ where: { email } })
       .then((user) => {
         if (!user) {
-          return cb(null, null)
+          return cb(null, null);
         }
-        return cb(null, user)
+        return cb(null, user);
       })
       .catch((err) => {
-        logger.error(`DB Error: ${err.message}`)
-        return cb(err)
-      })
-  }
-  return User
-}
+        logger.error(`DB Error: ${err.message}`);
+        return cb(err);
+      });
+  };
+  return User;
+};

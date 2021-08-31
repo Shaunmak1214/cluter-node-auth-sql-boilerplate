@@ -1,8 +1,8 @@
-const JWT = require('jsonwebtoken')
-const { body } = require('express-validator')
+const JWT = require('jsonwebtoken');
+const { body } = require('express-validator');
 
-const logger = require('../../winston-config')
-const db = require('../models')
+const logger = require('../../winston-config');
+const db = require('../models');
 
 exports.validateRules = (method) => {
   switch (method) {
@@ -19,8 +19,8 @@ exports.validateRules = (method) => {
           .exists()
           .withMessage('password does not exist')
           .isLength({ min: 5 })
-          .withMessage('must be at least 5 chars long')
-      ]
+          .withMessage('must be at least 5 chars long'),
+      ];
     }
     case 'login': {
       return [
@@ -29,12 +29,12 @@ exports.validateRules = (method) => {
           .withMessage('email does not exist')
           .isEmail()
           .withMessage('Invalid email'),
-        body('password').exists().withMessage('password does not exist')
-      ]
+        body('password').exists().withMessage('password does not exist'),
+      ];
     }
     default:
   }
-}
+};
 
 /**
  *  @swagger
@@ -77,35 +77,35 @@ exports.validateRules = (method) => {
 module.exports.signup = (req, res) => {
   db.user.findOneUser(req.body.email, (err, data) => {
     if (err) {
-      logger.error(`DB Error: ${err.message}`)
+      logger.error(`DB Error: ${err.message}`);
       res.status(500).json({
         status: false,
         message: 'some error occured',
-        error: err
-      })
+        error: err,
+      });
     }
     if (data) {
       res.status(200).json({
         status: false,
-        message: 'User already exist'
-      })
+        message: 'User already exist',
+      });
     } else {
       db.user
         .create(req.body)
         .then((newUser) => {
-          res.status(201).json({ status: true, newUser })
+          res.status(201).json({ status: true, newUser });
         })
         .catch((er) => {
-          logger.error(`DB Error: ${er.message}`)
+          logger.error(`DB Error: ${er.message}`);
           return res.status(500).json({
             status: false,
             message: 'error creating new User',
-            error: er
-          })
-        })
+            error: er,
+          });
+        });
     }
-  })
-}
+  });
+};
 
 /**
  * @swagger
@@ -151,41 +151,39 @@ module.exports.signup = (req, res) => {
 module.exports.login = (req, res) => {
   db.user.findOneUser(req.body.email, (err, user) => {
     if (err) {
-      logger.error(`DB Error: ${err.message}`)
+      logger.error(`DB Error: ${err.message}`);
       res.status(500).json({
         status: false,
         message: 'some error occured',
-        error: err
-      })
+        error: err,
+      });
     }
     if (user) {
-      const match = user.validPassword(req.body.password)
+      const match = user.validPassword(req.body.password);
 
       if (match) {
-        const expiry = '15m' // JWT expiry duration
-        const token = JWT.sign(
-          { data: user.id },
-          process.env.JWT_SECRET,
-          { expiresIn: expiry }
-        )
+        const expiry = '15m'; // JWT expiry duration
+        const token = JWT.sign({ data: user.id }, process.env.JWT_SECRET, {
+          expiresIn: expiry,
+        });
         res.status(200).json({
           status: true,
           message: 'User successfully logged in',
           access_token: token,
-          expiresIn: expiry
-        })
+          expiresIn: expiry,
+        });
       } else {
         res.status(401).json({
           status: false,
-          message: 'Wrong password'
-        })
+          message: 'Wrong password',
+        });
       }
     } else {
-      logger.info(`User not found: ${req.body.email}`)
+      logger.info(`User not found: ${req.body.email}`);
       res.status(404).json({
         status: false,
-        message: 'User not found'
-      })
+        message: 'User not found',
+      });
     }
-  })
-}
+  });
+};

@@ -1,12 +1,12 @@
-const winston = require('winston')
+const winston = require('winston');
 
 /**
  * Winston logger formatter
  * @returns formatted log string
  */
 const myFormat = winston.format.printf(({ level, message, timestamp }) => {
-  return `[${timestamp}] - ${level}: ${message}`
-})
+  return `[${timestamp}] - ${level}: ${message}`;
+});
 
 // Winston logger configuraiton
 const logger = winston.createLogger({
@@ -20,17 +20,17 @@ const logger = winston.createLogger({
       level: 'error',
       format: winston.format.combine(
         winston.format.timestamp(),
-        winston.format.json()
+        winston.format.json(),
       ),
-      maxsize: 1024 * 1024 * 10 // 10MB
+      maxsize: 1024 * 1024 * 10, // 10MB
     }),
     new winston.transports.File({
       filename: 'logs/combined.log',
       format: winston.format.combine(
         winston.format.timestamp(),
-        winston.format.json()
+        winston.format.json(),
       ),
-      maxsize: 1024 * 1024 * 10 // 10MB
+      maxsize: 1024 * 1024 * 10, // 10MB
     }),
     new winston.transports.Console({
       level: 'debug',
@@ -39,17 +39,17 @@ const logger = winston.createLogger({
       format: winston.format.combine(
         winston.format.colorize(),
         winston.format.timestamp({
-          format: 'YYYY-MM-DD HH:mm:ss'
+          format: 'YYYY-MM-DD HH:mm:ss',
         }),
-        myFormat
+        myFormat,
       ),
-    })
-  ]
-})
+    }),
+  ],
+});
 logger.stream = {
   write: (message) => {
-    logger.verbose(message)
-  }
-}
+    logger.verbose(message);
+  },
+};
 
-module.exports = logger
+module.exports = logger;

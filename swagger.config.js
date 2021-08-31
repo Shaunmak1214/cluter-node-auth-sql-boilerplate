@@ -3,16 +3,16 @@ module.exports.swaggerDocument = {
     openapi: '3.0.0', // Specification (optional, defaults to swagger: '2.0')
     info: {
       title: 'Node Auth Mysql', // Title (required)
-      version: '1.0.0' // Version (required)
-    }
+      version: '1.0.0', // Version (required)
+    },
   },
   host: 'localhost:3000',
   basepath: '/api',
   servers: ['http://localhost:3000'],
   // Path to the API docs
-  apis: ['./src/controllers/**/*.js']
-}
+  apis: ['./src/controllers/**/*.js'],
+};
 
 module.exports.swaggerOptions = {
-  explorer: true
-}
+  explorer: true,
+};
