@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "dev": "cross-env NODE_ENV=development DEBUG=* nodemon index.js",
+    "dev-app": "cross-env NODE_ENV=development DEBUG=app nodemon index.js",
     "lint": "npx standard .",
     "lint:fix": "npx standard --fix && echo 'Lint complete.'"
   },
@@ -26,16 +27,22 @@
     ]
   },
   "dependencies": {
-    "bcrypt": "^5.0.0",
+    "bcryptjs": "^2.4.3",
+    "bull": "^3.29.2",
     "cluster": "^0.7.7",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.6",
     "express": "^4.17.1",
+    "express-rate-limit": "^5.4.1",
     "express-validator": "^6.5.0",
+    "googleapis": "^88.2.0",
     "helmet": "^3.22.1",
     "jsonwebtoken": "^8.5.1",
     "loadtest": "^5.1.2",
     "morgan": "^1.10.0",
     "mysql2": "^2.1.0",
+    "nodemailer": "^6.7.0",
     "sequelize": "^5.21.12",
     "swagger-jsdoc": "^4.0.0",
     "swagger-ui-express": "^4.1.4",

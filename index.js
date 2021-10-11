@@ -1,7 +1,9 @@
 const os = require('os');
-const numOfCpus = os.cpus().length;
+let numOfCpus = os.cpus().length;
 const cluster = require('cluster');
 const { clusteringApp } = require('./app');
+
+numOfCpus = 2;
 
 if (cluster.isMaster) {
   console.log('Primary process ' + process.pid + ' spinning up');
