@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index.js",
+    "test": "node test/benchmark.js",
+    "start": "npm i && node index.js",
     "dev": "cross-env NODE_ENV=development DEBUG=* nodemon index.js",
     "dev-app": "cross-env NODE_ENV=development DEBUG=app nodemon index.js",
+    "prod-app": "cross-env NODE_ENV=production DEBUG=app nodemon index.js",
+    "loadtest": "loadtest -n 100 -c 8 http://localhost:5000/api/slow",
     "lint": "npx standard .",
-    "lint:fix": "npx standard --fix && echo 'Lint complete.'"
+    "lint:fix": "npx standard --fix && echo 'Lint complete.'",
+    "db:sync": "sequelize-cli db:migrate",
+    "db:sync:undo": "sequelize-cli db:migrate:undo:all",
+    "db:seed": "sequelize-cli db:seed:all",
+    "db:seed:undo": "sequelize-cli db:seed:undo:all",
+    "prepare": "husky install"
   },
   "author": "Shaun Mak",
   "license": "MIT",
