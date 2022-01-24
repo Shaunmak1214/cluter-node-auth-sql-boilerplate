@@ -10,7 +10,7 @@ const { swaggerDocument, swaggerOptions } = require('./swagger.config');
 const routes = require('./src/routes');
 
 // Modules
-const logger = require('./winston-config');
+const logger = require('./winston-config')(module);
 
 require('dotenv').config();
 
@@ -37,7 +37,7 @@ module.exports.clusteringApp = () => {
 
   app
     .get('/', (req, res) => {
-      res.send('Welcome to the ITS Email API');
+      res.send('Welcome!!');
     })
     .use(limiter);
 
@@ -57,18 +57,18 @@ module.exports.clusteringApp = () => {
   }
 
   // slow Api
-  app.get('/api/slow', function (req, res) {
-    console.time('slowApi');
-    const baseNumber = 7;
-    let result = 0;
-    for (let i = Math.pow(baseNumber, 7); i >= 0; i--) {
-      result += Math.atan(i) * Math.tan(i);
-    }
-    console.timeEnd('slowApi');
+  // app.get('/api/slow', function (req, res) {
+  //   console.time('slowApi');
+  //   const baseNumber = 7;
+  //   let result = 0;
+  //   for (let i = Math.pow(baseNumber, 7); i >= 0; i--) {
+  //     result += Math.atan(i) * Math.tan(i);
+  //   }
+  //   console.timeEnd('slowApi');
 
-    console.log(`Result number is ${result} - on process ${process.pid}`);
-    res.send(`Result number is ${result}`);
-  });
+  //   console.log(`Result number is ${result} - on process ${process.pid}`);
+  //   res.send(`Result number is ${result}`);
+  // });
 
   const swaggerDocs = swaggerJSDoc(swaggerDocument);
   app.use(
